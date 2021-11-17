@@ -13,6 +13,8 @@ terraform apply --auto-approve
 cd ..
 REM aws ecs describe-task-definition --task-definition go-task  --query taskDefinition > task-definition.json
 aws eks --region us-east-1 update-kubeconfig --name eks-cluster
+cd manifests
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
+cd ..
 PAUSE
