@@ -1,0 +1,43 @@
+variables:
+  DOCKER_REGISTRY: $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com
+  AWS_DEFAULT_REGION: us-east-1
+  APP_NAME: go-ecs-app-repo
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+  K8S_NAMESPACE: default
+  DEPLOYMENT_NAME: deployment.yaml
+
+
+services:
+  - docker:dind
+
+stages:
+  - push-image-to-aws-ecr
+  - eks
+
+Push Docker Image to AWS ECR:
+  image: docker
+  stage: push-image-to-aws-ecr
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip
+    - pip install awscli
+    - aws --version
+  script:
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - apk add --no-cache docker-compose
+    - aws ecr get-login --no-include-email --registry-ids $AWS_ECR_ACCOUNT | sh
+    - docker-compose build
+    - docker-compose push
+
+Push to EKS:
+  image: docker.io/sulemanhasib43/eks:latest
+  stage: eks    
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip
+    - pip install awscli
+    - aws --version
+    - aws eks --region us-east-1 update-kubeconfig --name eks-cluster
+  script:
+    - kubectl version
+    - kubectl apply -f deployment.yaml
+    - kubectl apply -f service.yaml

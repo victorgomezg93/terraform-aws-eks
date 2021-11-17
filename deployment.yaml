@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-ecs-app-repo
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: go-ecs-app-repo
+  template:
+    metadata:
+      labels:
+        app: go-ecs-app-repo
+    spec:
+      containers:
+        - name: go-ecs-app-repo
+          image: 645307551852.dkr.ecr.us-east-1.amazonaws.com/go-ecs-app-repo:latest
+          ports:
+            - containerPort: 443

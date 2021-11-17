@@ -1,0 +1,41 @@
+First of all we have to look which errors are happening
+
+If we look into "cat var/log/nginx/error.log" we can see that we don't have permissions
+in the folder "/srv/www", the best thing we can do is provide it using "chmod o+x /srv/www" 
+to let nginx execute this php file.
+
+We still having problems with the php socket. First we check if we have the socket in 
+"/var/run/php/"" and we don't have it, better restart the service with "service php7.4-fpm restart".
+We check again and we have the sock. we can restart the nginx service and see what happens 
+with "nginx -s reload"
+
+Now if we enter in the webiste we can see is empty but no errors on nginx.
+
+Now let's install nano for allow modificaciontos "apt-get install nano"
+
+If we look into  "/etc/nginx/sites-enabled/default-conf" we can see a timeout 
+"fastcgi_read_timeout 3s;" locking into the code if we have to wait 4 seconds is not a good 
+idea to have a 3 second timeout so we can quit this line.
+
+Also add:
+
+try_files $uri =404;
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+to allow the nginx to use the index.php and finally grant read permission in the index.php
+"chmod +r /srv/www/index.php". Now if we make an "nginx -s reload" we should be able to see
+the page with the "0 1 2 3 4 Hello World!".
+
+For make the app.log work we should transfer the ownsership to the user www.data with the 
+command "chown www-data /srv/www/app.log", then all requests will be printent in that log.
+
+In case we want to solve everything with an script we can mount a folder (use your own path) 
+"docker run -d -v "C:\Users\victo\Desktop\solution_task_2":/mnt/scripts -p 8086:80 printfuldevops/hello-world" 
+with the files attached, make them executable "cd /mnt/scripts/" "chmod +x /fix.sh" and execute it "./fix.sh" :
+
+So in conclusion the list of issues was:
+- Folder withouth executable permission
+- No php sock
+- nginx defaul.conf with errors
+- no permission in index.php
+- no nginx ownership of app.log
