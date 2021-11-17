@@ -56,9 +56,7 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg MONGODB_URI=${MONGODB_URI} --build-arg DB=${DB} --build-arg COLLECTION=${COLLECTION} .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
-
-   - name: Setup kubeconfig
+    - name: Setup kubeconfig
       id: setup-kubeconfig
       run: |
         aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER
@@ -68,16 +66,16 @@ jobs:
         K8S_YAML_DIR: ./manifests 
         IMAGE_NAME: ${{ steps.build-image.outputs.image }}
       run: |
-        # Setup kustomize
-        curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-        chmod u+x ./kustomize
-        ./kustomize edit set image example-eks=$IMAGE_NAME
-        ./kustomize build . | kubectl apply -f -
-        # Verify deployment
-        kubectl rollout status deployment/aws-example-octodex
-        # List Public IP of cluster
-        kubectl get services -o wide
-        kubectl get ingress
+          # Setup kustomize
+          curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
+          ./kustomize edit set image example-eks=$IMAGE_NAME
+          ./kustomize build . | kubectl apply -f -
+          # Verify deployment
+          kubectl rollout status deployment/aws-example-octodex
+          # List Public IP of cluster
+          kubectl get services -o wide
+          kubectl get ingress
 
 
 
