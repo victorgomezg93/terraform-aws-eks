@@ -8,11 +8,9 @@ on:
 env:
   AWS_REGION: us-east-1                    # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: go-ecs-app-repo          # set this to your Amazon ECR repository name
-  ECS_SERVICE: go-service                 # set this to your Amazon ECS service name
-  EKS_CLUSTER: eks-cluster 
-  MONGODB_URI: ${{ secrets.MONGODB_URI }}                                             # containerDefinitions section of your task definition
-  DB: ${{ secrets.DB }}   
-  COLLECTION: ${{ secrets.COLLECTION }} 
+
+  EKS_SERVICE: go-service                 # set this to your Amazon ECS service name
+  EKS_CLUSTER: eks-cluster                                          # containerDefinitions section of your task definition 
   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}  
 
   MONGODB_URI: ${{ secrets.MONGODB_URI }}                                             # containerDefinitions section of your task definition
