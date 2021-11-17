@@ -72,23 +72,21 @@ We have a bootstrap on the index page.
 PIPELINE
 ----
 
-In case you want to try the pipeline, the pipeline deploys on ECR and in EKS, you should go to gitlab
-secrets and add 
+In case you want to try the pipeline, the pipeline deploys on ECR and in EKS, you should go to github
+secrets and add, then in every push you will be creating all yamls in kustomization.yaml
 
 ```sh
-Variable
 AWS_ACCESS_KEY_ID
-*********************
-All (default)
 
-Variable
-AWS_ECR_ACCOUNT
-*********************
-All (default)
+AWS_ACCOUNT_ID
 
-Variable
 AWS_SECRET_ACCESS_KEY
-*********************
-All (default)
+
+COLLECTION
+
+DB
+
+MONGODB_URI
+
 
 ```
