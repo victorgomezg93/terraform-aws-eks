@@ -73,8 +73,6 @@ jobs:
           chmod u+x ./kustomize
           ./kustomize edit set image example-eks=$IMAGE_NAME
           ./kustomize build . | kubectl apply -f -
-          # Verify deployment
-          kubectl rollout status deployment/aws-example-octodex
           # List Public IP of cluster
           kubectl get services -o wide
           kubectl get ingress
