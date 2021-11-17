@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: go-ecs-app-repo
-          image: 645307551852.dkr.ecr.us-east-1.amazonaws.com/go-ecs-app-repo:latest
+          image: 942843129420.dkr.ecr.us-east-1.amazonaws.com/go-ecs-app-repo:latest
           ports:
             - containerPort: 443

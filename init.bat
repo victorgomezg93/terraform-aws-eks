@@ -15,6 +15,4 @@ REM aws ecs describe-task-definition --task-definition go-task  --query taskDefi
 aws eks --region us-east-1 update-kubeconfig --name eks-cluster
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
-REM timeout 2
-REM kubectl apply -f aws-auth-cm.yaml
 PAUSE
