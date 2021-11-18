@@ -56,7 +56,7 @@ Our container is a go server is running with https protocol in port 443, the aws
 
 We have an init.bat script to start the infraestructure and a destroy.bat script to destroy it.
 
-![alt text](https://github.com/victorgomezg93/terraform-aws-eks/blob/main/diagram.png?raw=true)
+![alt text](https://github.com/victorgomezg93/terraform-aws-eks/blob/master/diagram.png?raw=true)
 
 CODE
 ----
