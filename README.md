@@ -56,6 +56,8 @@ Our container is a go server is running with https protocol in port 443, the aws
 
 We have an init.bat script to start the infraestructure and a destroy.bat script to destroy it.
 
+![alt text](https://github.com/victorgomezg93/terraform-aws-eks/blob/main/diagram.png?raw=true)
+
 CODE
 ----
 We have a docker to deploy the application and to implement some api we have in the /health path a healtcheck checking if our sqlite3 database is connected or not, I didn't had time to implement the database so always return the same response in json:
