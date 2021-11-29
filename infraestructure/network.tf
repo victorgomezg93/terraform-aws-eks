@@ -2,7 +2,7 @@
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "2.7.0"
+  version = "~> 3.1, < 3.38.0"
 
   name                 = "${var.cluster-name}-eks-vpc"
   cidr                 = var.vpc-subnet-cidr
